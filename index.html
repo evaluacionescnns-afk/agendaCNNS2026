@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda para evaluaciones</title>
+    <link rel="icon" href="assets/img/icon.png">
+     <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <Header>
+        <div class="contenedor-info-header">
+            <img class="logo" src="assets/img/logo.png" alt="Logo Coro Juvenil del Sodre">
+            
+            <div id="nombreOIExcel"></div>
+        </div>
+        <h1>Agenda para evaluaciones</h1>
+    </Header>
+    <main>
+        <div class="contenedor-login" id="contenedor-login">
+            <form class="form-login" id="form-login">
+                
+
+                <label for="nro-doc-login">Ingrese número de documento (sin puntos ni guiones)</label>
+                <input type="text" id="nro-doc-login" name="nro-doc-login" placeholder="51232346" required>
+
+                
+                <button class="btn-ingresar" type="submit">Ingresar</button>
+
+                <span id="error-documento" class="error"></span>
+            </form>
+        </div>
+
+        <div class="contenedor-calendario" style="display: none;" id="contenedor-calendario">
+            <div class="contenedor-botones-superiores">
+                <!-- <button id="flecha-atras"></button> -->
+                <h3>Mayo</h3>
+                <!-- <button id="flecha-adelante"></button> -->
+            </div>
+
+            
+            <div class="contenedor-dias-semana">
+                <div class="dias-semana">                    
+                    <div>Lun</div>
+                    <div>Mar</div>
+                    <div>Mié</div>
+                    <div>Jue</div>
+                    <div>Vie</div>
+                    <div>Sáb</div>
+                    <div>Dom</div>
+                </div>
+                <div class="contenedor-celdas" id="contenedor-celdas"></div>
+            </div>
+            
+
+            <h5 id="fecha-seleccionada" style="display:none;"></h5>
+            <hr id="separador-fecha" style="display:none;">
+
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+        </div>
+
+
+
+        <!-- Modal de Confirmación -->
+        <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel" >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalConfirmacionLabel">Confirmación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body" id="modalConfirmacionMensaje">
+                        <!-- Texto dinámico -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="modalCancelarBtn" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="modalConfirmarBtn">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Edición de Grupo -->
+        <div class="modal fade" id="modalEdicionGrupo" tabindex="-1" aria-labelledby="modalEdicionGrupoLabel" >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEdicionGrupoLabel">Editar grupo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">        
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="modalConfirmarEdicionBtn" data-bs-dismiss="modal">Eliminar inscripción</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="links-iconos">
+            <a href="https://www.flaticon.es/iconos-gratis/archivo-de-microsoft-excel" title="archivo de microsoft excel iconos">Archivo de microsoft excel iconos creados por Rahul Kaklotar - Flaticon</a>
+            <a href="https://www.flaticon.es/iconos-gratis/editar" title="editar iconos">Editar iconos creados por Kiranshastry - Flaticon</a>
+        </div>
+</div>
+
+    </main>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- XlsxPopulate -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-populate/browser/xlsx-populate.min.js"></script>
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>

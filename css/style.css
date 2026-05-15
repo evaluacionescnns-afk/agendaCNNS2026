@@ -1,0 +1,418 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+
+main{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* Contenedor que ocupa toda la pantalla y centra vertical y horizontalmente */
+#contenedor-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    width: 100%;
+}
+
+/* Caja del login */
+#form-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    padding: 2rem;
+}
+
+
+
+input {
+    margin: 1.5rem;
+}
+
+.btn-ingresar {
+    background-color: #98d0e8;
+    border: none;
+    border-radius: 10%;
+    padding: 0.7rem;
+}
+
+.btn-ingresar:hover {
+    background-color: #7fc8e8;
+}
+
+.btn-ingresar:active {
+    background-color: #6ba9c3 !important;
+}
+
+
+#error-documento {
+    margin: 1rem;
+    text-align: center;
+}
+
+.contenedor-info-header {
+    position: relative;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    height: 6rem;
+    width: auto;
+    padding: 1rem 2rem;
+}
+
+h1 {
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%); */
+    text-align: center;
+    font-family: 'Gloock', serif !important;
+    font-size: 2rem;
+    line-height: 1.35;
+    font-weight: normal;
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+#nombreOIExcel{
+
+  margin-left: auto; 
+  margin-right: 2rem;
+}
+
+.icono-excel{
+    cursor: pointer;
+    transform: scale(1.7);
+}
+
+.contenedor-calendario {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    flex-direction: column;
+    width: 80vw;
+    margin: 0 auto;
+    
+}
+
+.contenedor-botones-superiores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+}
+
+/* .flecha {
+    height: 50%;
+    margin: 1rem;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.oculto {
+    visibility: hidden;
+} */
+
+.dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    place-items: center;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+}
+
+.contenedor-celdas {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    place-items: center;
+}
+
+.contenedor-celdas div {
+    min-width: 3rem;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.enabled-days {
+    background-color: #98d0e8;
+    border-radius: 20%;
+    cursor: pointer;
+}
+
+.enabled-days:hover{
+    background-color: #7fc8e8;
+}
+.enabled-days:active{
+    background-color: #6ba9c3;
+}
+
+.not-enabled-days {
+    color: #BFBFBF;
+}
+
+h5 {
+    margin-top: 4rem;
+    text-align: center;
+}
+
+hr {
+    width: 30%;
+    margin: auto;
+}
+
+.links-iconos{
+    display: none;
+}
+
+.selected-day {
+    background-color: #7fc75d !important;
+}
+.grupo-container{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+.accordion {
+    margin: 1.5rem auto;
+    width: 65%;
+}
+
+.accordion-item {
+    margin: 1rem 0;
+    border-bottom: none !important;
+}
+.accordion-main{
+    flex: 1;
+}
+
+
+.accordion-header-content {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.accordion-button {
+    background-color: #98d0e8 !important;
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #98d0e8 !important;
+    box-shadow: none;
+}
+
+.accordion-collapse {
+    width: 100%;
+}
+
+.accordion-body {
+    background-color: #c2eafc;
+    color: #052c65;
+}
+.reserve {
+    background-color: #CEFFB8;
+    color: #052c65;
+    border: none;
+}
+
+.reserve:hover {
+    background-color: #aadd92;
+    color: #052c65;
+}
+
+.reserve:active {
+    background: #93c97b !important;
+    color: #052c65 !important;
+}
+
+.modal-header .modal-title {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.btn-success{
+    background-color: #ffa3a3 !important;
+    color: #270000;
+}
+
+.btn-success:hover {
+    background-color: #ff6a6a !important;
+    color: #270000;
+}
+
+.btn-success:active {
+    background-color: #e05c5c !important;
+    color: #270000 !important;
+}
+
+#modalConfirmarBtn {
+    background-color: #CEFFB8;
+    color: #052c65;
+    border: none;
+}
+
+
+#modalConfirmarBtn:hover {
+    background-color: #aadd92;
+}
+
+#modalConfirmarBtn:active {
+    background-color: #93c97b;
+}
+
+#modalConfirmarEdicionBtn{
+    background-color: #cfe2ff;
+    color: #052c65;
+    border: none;
+}
+
+#modalConfirmarEdicionBtn:hover{
+    background-color: #b9d6ff;
+}
+
+#modalConfirmarEdicionBtn:active{
+    background-color: #93beff;
+}
+
+.btn-hidden{
+    display: none !important;
+}
+
+.nombre-item-edicion{
+    margin: 1.5rem 0;
+    list-style: none;
+}
+
+.form-check{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.form-check-input{
+    margin: 0;
+}
+
+/* ----------- RESPONSIVE DESIGN ----------- */
+
+@media (max-width: 768px) {
+    body {
+        font-size: 0.95rem;
+    }
+
+    #contenedor-login {
+        width: 90%;
+    }
+
+    label {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+        margin: 1rem 0;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-top: 1.8rem;
+    }
+
+    .contenedor-info-header img {
+        height: 4rem;
+        margin: 0.5rem;
+    }
+
+    .contenedor-info-header {
+        height: 5rem;
+    }
+
+    .contenedor-botones-superiores {
+    margin-top: 3.5rem;
+    }
+
+
+    .contenedor-calendario {
+        width: 95vw;
+        padding: 0.5rem;
+    }
+
+    .dias-semana,
+    .contenedor-celdas {
+        gap: 0.5rem;
+    }
+
+    .contenedor-celdas div {
+        min-width: 2rem;
+        min-height: 2rem;
+        font-size: 0.85rem;
+    }
+
+    .flecha {
+        margin: 0.5rem;
+    }
+
+    .accordion {
+        width: 80%;
+        margin: 2rem 0;
+    }
+
+    .accordion-item {
+        width: 90%;
+    }
+
+    .accordion-button,
+    .accordion-body {
+        width: 100%;
+    }
+
+    .accordion-header-content {
+       /*  flex-direction: column; */
+        gap: 0.5rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .modal-body {
+        font-size: 0.95rem;
+    }
+
+    h5 {
+        font-size: 1rem;
+    }
+
+    hr {
+        width: 50%;
+    }
+
+
+}
