@@ -1,4 +1,5 @@
 emailjs.init('2eMfdE1GQKr8lsBkC');
+
 document.addEventListener('DOMContentLoaded', () => {
     let ci;
     let nivelPermiso;
@@ -7,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let usuarioActualCI = null;
     let nombreUsuario = null;
     let usuarioCuerda = null;
-    let currentMonth = 4;
+    let currentMonth = 6;
     let currentYear = 2026;
     let botonActivo = null;
 
@@ -26,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- Supabase --- */
 
-    const SUPABASE_URL = "https://sxedtzokxzcbxpsutgor.supabase.co"
-    const SUPABASE_KEY = "sb_publishable_RsldWjWlIrNW6gkvi5BWjA_ZT7YGTqT"
+    const SUPABASE_URL = "https://gvgpzsntqgbezxfkpfey.supabase.co"
+    const SUPABASE_KEY = "sb_publishable_F7d2Ork5-3gdQV62WuHtgQ_86jmxFZg"
 
     const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -241,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let columna = null;
-        switch (usuarioCuerda) {
+        /* switch (usuarioCuerda) {
             case "S":
             columna = "CupoS";
             break;
@@ -253,6 +254,22 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
             case "B":
             columna = "CupoB";
+            break;
+            default:
+            console.error("usuarioCuerda desconocido:", usuarioCuerda);
+            return 0;
+        }
+ */
+
+        switch (usuarioCuerda) {
+            case "PI":
+            columna = "CupoPI";
+            break;
+            case "M":
+            columna = "CupoM";
+            break;
+            case "PD":
+            columna = "CupoPD";
             break;
             default:
             console.error("usuarioCuerda desconocido:", usuarioCuerda);
@@ -276,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function modificarCupoGrupoPorUsuarioTipo(grupoID, usuarioCuerda) {
         let columna;
-        switch (usuarioCuerda) {
+        /* switch (usuarioCuerda) {
             case "S":
                 columna = "CupoS";
                 break;
@@ -289,6 +306,21 @@ document.addEventListener('DOMContentLoaded', () => {
             case "B":
                 columna = "CupoB";
                 break;
+            default:
+                console.error("Cuerda de usuario no reconocida");
+                return;
+        } */
+
+        switch (usuarioCuerda) {
+            case "PI":
+                columna = "CupoPI";
+                break;
+            case "M":
+                columna = "CupoM";
+                break;
+            case "PD":
+                columna = "CupoPD";
+                break;            
             default:
                 console.error("Cuerda de usuario no reconocida");
                 return;
@@ -320,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .update({ [columna]: cupoActual - 1 })
                 .eq("GrupoID", grupoID);
             errorUpdate = errorResta;
-        } else {
+        } else if(cupoActual === 0) {
             const { errorSuma } = await supabaseClient
                 .from("Grupos")
                 .update({ [columna]: cupoActual + 1 })
@@ -337,7 +369,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function sumarCupos(grupoID){
         const { data, error } = await supabaseClient
             .from("Grupos")
-            .select("CupoS, CupoM, CupoT, CupoB")
+            //.select("CupoS, CupoM, CupoT, CupoB")
+            .select("CupoPI,CupoM,CupoPD")
             .eq("GrupoID", grupoID)
             .single();
 
@@ -351,7 +384,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return null;
             }
 
-        let total = data.CupoS + data.CupoM + data.CupoT + data.CupoB;
+        //let total = data.CupoS + data.CupoM + data.CupoT + data.CupoB;
+        let total = data.CupoPI + data.CupoM + data.CupoPD;
         return total;
     }
 
@@ -388,14 +422,29 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.show();
     }
 
-    function mostrarModalConfirmacion(mensaje, onConfirm) {
+   function mostrarModalConfirmacion(mensaje, onConfirm) {
         modalMensaje.textContent = mensaje;
         btnConfirmar.textContent = "Confirmar";
         btnCancelar.style.display = "inline-block";
-        btnConfirmar.onclick = onConfirm;
+
+        btnConfirmar.onclick = async () => {
+            if (btnConfirmar.disabled) {
+                console.log("CLICK IGNORADO");
+                return;
+            }
+
+            btnConfirmar.disabled = true;
+
+            try {
+                console.log("CONFIRMAR PRESIONADO");
+                await onConfirm();
+            } finally {
+                btnConfirmar.disabled = false;
+            }
+        };
+
         modal.show();
     }
-
     /* ------------------------------------------- */
 
 
@@ -445,8 +494,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
         const response = await emailjs.send(
-            'service_jv9n0yr',
+            /* 'service_jv9n0yr',
+            'template_a9cc0oa', */
+
+            'service_qt3lpxi',
             'template_a9cc0oa',
+
             params
         );
         console.log('Correo enviado', response.status, response.text);
@@ -464,12 +517,13 @@ document.addEventListener('DOMContentLoaded', () => {
             .select("GrupoID")
             .order("GrupoID", { ascending: true });
 
-        const response = await fetch("xls/CuadernoEvaluacionesCNJS2026.xlsx");
+        const response = await fetch("xls/CuadernoEvaluacionesCNNS2026.xlsx");
         const arrayBuffer = await response.arrayBuffer();
         const workbook = await XlsxPopulate.fromDataAsync(arrayBuffer);
         const sheet = workbook.sheet(0);
 
-        const cuerdasOrder = ["S", "M", "T", "B"];
+        //const cuerdasOrder = ["S", "M", "T", "B"];
+        const cuerdasOrder = ["PI", "M", "PD"];
         let filaActual = 4;
 
         for (const grupo of grupos) {
@@ -490,11 +544,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 .select("CI, Cuerda, Nombre")
                 .in("CI", idsIntegrantes);
 
-            let posiciones = {
+            /* let posiciones = {
                 S: null,
                 M: null,
                 T: null,
                 B: null
+            }; */
+
+            let posiciones = {
+                PI: null,
+                M: null,
+                PD: null
             };
 
             integrantes.forEach((int) => {
@@ -664,9 +724,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 let botonClase;
                 const botonTexto = estaInscripto ? 'Cancelar' : 'Agendarme';             
                 if (totalCupos !== 0){
-                botonClase = estaInscripto ? 'btn-success' : 'btn-outline-primary';                
+                    botonClase = estaInscripto ? 'btn-success' : 'btn-outline-primary';                
                 }else{
-                botonClase = 'btn-hidden';
+                    botonClase = 'btn-hidden';
                 }           
 
 
@@ -918,7 +978,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             await modificarCupoGrupoPorUsuarioTipo(grupoID, usuarioCuerda);
 
-                            let totalCupoEnGrupo = await sumarCupos(grupoID);                            
+                            let totalCupoEnGrupo = await sumarCupos(grupoID);        
                             if (totalCupoEnGrupo === 0) {
                                 botonActivo.classList.add('btn-hidden');
 
@@ -993,18 +1053,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
         await actualizarEstadoBotones();
 
-    }
-
-
-
-
-
-    
-
-
-   
-
-
-   
+    }   
 
 });
