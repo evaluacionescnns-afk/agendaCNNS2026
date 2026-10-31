@@ -1,4 +1,4 @@
-emailjs.init('2eMfdE1GQKr8lsBkC');
+emailjs.init('QmahIZKljvbhyDtus');
 
 document.addEventListener('DOMContentLoaded', () => {
     let ci;
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let usuarioActualCI = null;
     let nombreUsuario = null;
     let usuarioCuerda = null;
-    let currentMonth = 6;
+    let currentMonth = 10;
     let currentYear = 2026;
     let botonActivo = null;
 
@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- Supabase --- */
 
-    const SUPABASE_URL = "https://gvgpzsntqgbezxfkpfey.supabase.co"
-    const SUPABASE_KEY = "sb_publishable_F7d2Ork5-3gdQV62WuHtgQ_86jmxFZg"
+    const SUPABASE_URL = "https://tiwjtawphbbrqwikjhfl.supabase.co"
+    const SUPABASE_KEY = "sb_publishable_ph7tGp4XrlgX1LulGTc0MQ_tCXPdCxM"
 
     const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -488,17 +488,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = {
             email: email,
             grupo: grupo,
-            dia_grupo: diaGrupo,
-            hora_grupo: horaGrupo,
+            dia: diaGrupo,
+            hora: horaGrupo,
         };
         
         try {
         const response = await emailjs.send(
-            /* 'service_jv9n0yr',
-            'template_a9cc0oa', */
 
-            'service_qt3lpxi',
-            'template_a9cc0oa',
+            'service_uixn4cb',
+            'template_vk8prqp',
 
             params
         );
@@ -634,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }else{
                 // Icono excel
                 const iconoExcel = document.getElementById('nombreOIExcel');
-                iconoExcel.innerHTML = `<img src="assets/img/excel.png" alt="Exportar a Excel" style="width:20px; height:20px;">`;
+                iconoExcel.innerHTML = `<img src="assets/img/excel.png" alt="Exportar a Excel" title="Exportar" style="width:20px; height:20px;">`;
                 iconoExcel.classList.add('icono-excel');
 
                 iconoExcel.onclick = async () => {
@@ -935,12 +933,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         botonActivo.classList.remove('btn-success');
                         botonActivo.classList.add('btn-outline-primary');
                         botonActivo.removeAttribute('data-inscripcion-id');
-                        const accordionItem = botonActivo.closest('.accordion-item');
+                        /* const accordionItem = botonActivo.closest('.accordion-item');
                         const integrantesList = accordionItem.querySelector('.accordion-body ul');
                         const integrantes = integrantesList.querySelectorAll('li');
 
                         integrantes.forEach(li => {
-                            if (li.textContent.trim() === nombreUsuario) {
+                            if (li.textContent.trim() === nombreUsuario.trim) {
                                 li.remove();
                             }
                         });
@@ -949,8 +947,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             const mensaje = document.createElement('li');
                             mensaje.textContent = 'Todavía no hay integrantes en este grupo.';
                             integrantesList.appendChild(mensaje);
-                        }
+                        } */
 
+                        await actualizarIntegrantesGrupo(grupoID);
+                        
                         modal.hide();
                         await actualizarEstadoBotones();
                     });
@@ -1011,8 +1011,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                     try {
                                         // Ejecutar todos los envíos en paralelo y esperar a que terminen
+                                        const fechaFormateada = fechaGrupo.split('-').reverse().join('-');
                                         await Promise.all(
-                                            dirMails.map(email => enviarCorreo(email, grupoNombre, fechaGrupo, horarioGrupo))
+                                            dirMails.map(email => enviarCorreo(email, grupoNombre, fechaFormateada, horarioGrupo))
                                         );
                                         console.log('Todos los mails enviados');
                                     } catch (err) {
